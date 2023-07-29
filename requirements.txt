@@ -11,3 +11,4 @@ pydantic[email]
 SQLAlchemy
 requests
 pytest
+python-decouple

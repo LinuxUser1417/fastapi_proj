@@ -13,6 +13,7 @@ from sqlalchemy import ForeignKey
 from typing import List
 import requests
 from collections import Counter
+from decouple import config
 
 # Создаем FastAPI app
 # Creating a FastAPI app
@@ -262,9 +263,11 @@ def delete_post(post_id: int, db: Session = Depends(get_db), current_user: User 
     db.commit()
     return db_post
 
+api_key = config("API_KEY")
+
 def check_email_exists(email):
     response = requests.get(f"https://api.emailhunter.co/v1/verify?email={email}",
-                            headers={"Authorization": f"Bearer {sk_3774df1878c253943840d2c93eccfb7e}"})
+                            headers={"Authorization": f"Bearer {api_key}"})
     data = response.json()
     return data["data"]["status"] == "valid"
 
